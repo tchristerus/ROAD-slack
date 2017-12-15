@@ -1,8 +1,9 @@
-# Introduction
-ROAD node server is used to communicate between the C# app and Slack plugin.
-
 # Installation
 `npm install`
 
+# iptables
+`ufw allow 6666`
+
+`ufw allow 1234` 
 ## run
 `node App.js`
