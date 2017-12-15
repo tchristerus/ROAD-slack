@@ -5,7 +5,7 @@ var Router = require('node-simple-router');
 
 const machineLearningGithub = "machine_learning/github/";
 var router = Router(); // may also be router = new Router();
-var sockets = [];
+var sockets = "";
 console.log("Socket erver started at port 6666");
 console.log("webserver started at port 1234");
 
@@ -21,7 +21,7 @@ var server = http.createServer(router);
 server.listen(1234);
 
 io.on('connect', function (soc) {
-    sockets.push(soc);
+    sockets = soc;
 });
 
 
