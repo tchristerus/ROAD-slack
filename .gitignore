@@ -1,0 +1,5 @@
+.idea/
+machine_learning/github/*
+!machine_learning/github/default_data/
+logs/*
+node_modules/
