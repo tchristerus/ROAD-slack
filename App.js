@@ -1,5 +1,5 @@
 "use strict";
-var io = require('socket.io')(666);
+// var io = require('socket.io')(666);
 var http = require('http');
 var Router = require('node-simple-router');
 
