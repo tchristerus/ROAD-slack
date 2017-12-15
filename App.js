@@ -10,7 +10,7 @@ console.log("Server started at port 9473");
 
 router.post("/slack/end", function(request, response) {
     console.log(request);
-    response.end("Hello, World!");
+    response.end(request.post.challenge);
 });
 
 var server = http.createServer(router);
