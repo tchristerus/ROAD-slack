@@ -34,7 +34,7 @@ io.on('connect', function (soc) {
         callbacks.forEach(function(element) {
             if(element.socketId == soc.id) {
                 element.callback(request.post.event.text);
-                console.log("Removed socket: " soc.id);
+                console.log("Removed socket: "  + soc.id);
             }
         });
     });
