@@ -1,12 +1,13 @@
 "use strict";
-// var io = require('socket.io')(666);
+var io = require('socket.io')(6666);
 var http = require('http');
 var Router = require('node-simple-router');
 
 const machineLearningGithub = "machine_learning/github/";
 var router = Router(); // may also be router = new Router();
 
-console.log("Server started at port 9473");
+console.log("Socket erver started at port 6666");
+console.log("webserver started at port 1234");
 
 router.post("/slack/end", function(request, response) {
     console.log(request.post);
@@ -17,7 +18,9 @@ var server = http.createServer(router);
 
 server.listen(1234);
 
-
+io.on('connect', function (soc) {
+    console.log("Socket connected");
+});
 
 
 // /***
