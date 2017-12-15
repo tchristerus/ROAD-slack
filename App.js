@@ -12,8 +12,10 @@ console.log("webserver started at port 1234");
 router.post("/slack/end", function(request, response) {
     // sockets[0].emit("message_received", request.post.event.text);
     callbacks.forEach(function(element) {
-        if(element.userID == request.post.team_id)
+        if(element.userID == request.post.team_id) {
             element.callback(request.post.event.text);
+            console.log("found");
+        }
     });
     response.end(request.post.challenge);
 });
