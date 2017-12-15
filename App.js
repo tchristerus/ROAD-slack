@@ -22,7 +22,7 @@ var server = http.createServer(router);
 server.listen(1234);
 
 io.on('connect', function (soc) {
-    socket.push(soc);
+    sockets.push(soc);
 });
 
 
