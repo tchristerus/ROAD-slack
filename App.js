@@ -11,8 +11,7 @@ console.log("webserver started at port 1234");
 
 router.post("/slack/end", function(request, response) {
     console.log(request.post);
-    console.log("------------sockets ---------------\n" +sockets);
-    console.log("------------request text ---------------\n" +request.event.text);
+    console.log("------------request text ---------------\n" +request.post.event.text);
     sockets[0].emit("message_received", request.event.text);
     response.end(request.post.challenge);
 });
