@@ -46,10 +46,13 @@ io.on('connect', function (soc) {
         console.log("Socket connected:" + soc.id);
     });
 
-    soc.on("disconnect", function () {
-        callbacks.forEach(function(element) {
-            if(element.socketId == soc.id) {
+    soc.on("disconnect", function (soc) {
+        callbacks.forEach(function(item, index, object) {
+            if (item.socketId === soc.id) {
+                object.splice(index, 1);
                 console.log("Removed socket: "  + soc.id);
+                console.log(callbacks);
+
             }
         });
     });
