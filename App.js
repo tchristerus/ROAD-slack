@@ -19,7 +19,8 @@ router.post("/slack/end", function(request, response) {
 });
 
 router.post("/github/end", function (request, response) {
-    console.log(request);
+    var json = JSON.parse(request.body);
+    console.log(json.hook.config.secret);
     // callbacks.forEach(function(element) {
     //     if(element.githubSecret == request.post.team_id) {
     //         element.callback(request.post.event.text);
