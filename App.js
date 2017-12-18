@@ -43,7 +43,7 @@ io.on('connect', function (soc) {
             soc.emit(type, msg);
             console.log("sent " + type + " to:" + soc.id);
         }});
-        console.log("Socket connected:" + soc.id);
+        console.log("Socket connected:" + soc.id +"\nConnections: " + callbacks.length);
     });
 
     soc.on("disconnect", function () {
@@ -53,7 +53,6 @@ io.on('connect', function (soc) {
                 console.log("Removed socket: "  + soc.id +"\nConnections left: " + callbacks.length);
             }
         });
-        console.log(callbacks);
     });
 });
 
