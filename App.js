@@ -19,13 +19,13 @@ router.post("/slack/end", function(request, response) {
 });
 
 router.post("/github/end", function (request, response) {
-    //var json = JSON.parse(request.body);
-    console.log(request.post.repository.url);
-    // callbacks.forEach(function(element) {
-    //     if(element.githubSecret == request.post.team_id) {
-    //         element.callback(request.post.event.text);
-    //     }
-    // });
+    //var json = JSON.parse(request.post);
+    //console.log(request.post.repository.url);
+    callbacks.forEach(function(element) {
+        if(element.githubURL == request.post.repository.url) {
+            element.callback("commit!");
+        }
+    });
     response.code(200);
 });
 
@@ -37,8 +37,8 @@ io.on('connect', function (soc) {
     soc.on("init", function (msg) {
         var json = JSON.parse(msg);
         soc.teamID = json.teamID;
-        soc.githubSecret = json.githubSecret;
-        callbacks.push({team: msg, socketId: soc.id, callback: function(msg){
+        soc.githubURL = json.githubURL;
+        callbacks.push({team: json.teamID, socketId: soc.id, githubURL: soc.githubURL, callback: function(msg){
             soc.emit("message_received", msg);
         }});
     });
