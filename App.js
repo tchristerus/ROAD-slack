@@ -33,7 +33,6 @@ io.on('connect', function (soc) {
     soc.on("disconnect", function () {
         callbacks.forEach(function(element) {
             if(element.socketId == soc.id) {
-                element.callback(request.post.event.text);
                 console.log("Removed socket: "  + soc.id);
             }
         });
