@@ -40,7 +40,7 @@ io.on('connect', function (soc) {
         var json = JSON.parse(msg);
         soc.teamID = json.teamID;
         soc.githubURL = json.githubURL;
-        callbacks.push({team: json.teamID, socketId: soc.id, githubURL: soc.githubURL, callback: function(msg, type){
+        callbacks.push({team: json.teamID, socketId: soc.id, githubURL: soc.githubURL, callback: function(type, msg){
             soc.emit(type, msg);
             console.log("sent" + type + " to:" + soc.id);
         }});
