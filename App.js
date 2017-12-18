@@ -42,14 +42,14 @@ io.on('connect', function (soc) {
             soc.emit(type, msg);
             console.log("sent " + type + " to:" + soc.id);
         }});
-        console.log("Socket connected:" + soc.id +"\nConnections: " + callbacks.length);
+        console.log(("Socket connected:" + soc.id +"\nConnections: " + callbacks.length).green);
     });
 
     soc.on("disconnect", function () {
         callbacks.forEach(function(item, index, object) {
             if (item.socketId == soc.id) {
                 object.splice(index, 1);
-                console.log("Removed socket: "  + soc.id +"\nConnections left: " + callbacks.length);
+                console.log(("Removed socket: "  + soc.id +"\nConnections left: " + callbacks.length).red);
             }
         });
     });

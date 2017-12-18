@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "ROAD server",
   "dependencies": {
+    "colors": "^1.1.2",
     "node-simple-router": "^0.10.1",
     "python-shell": "^0.4.0",
     "simple-node-logger": "^0.93.33",
