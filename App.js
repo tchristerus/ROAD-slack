@@ -5,7 +5,7 @@ var Router = require('node-simple-router');
 
 var router = Router();
 var callbacks = [];
-console.log("Socket erver started at port 6666");
+console.log("Socket server started at port 6666");
 console.log("webserver started at port 1234");
 
 router.post("/slack/end", function(request, response) {
