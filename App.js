@@ -12,7 +12,8 @@ router.post("/slack/end", function(request, response) {
     console.log(callbacks);
     callbacks.forEach(function(element) {
         if(element.team == request.post.team_id) {
-            element.callback("github_received", request.post.event.text);
+            console.log(request.pos);
+            element.callback("github_received", JSON.stringify({message: request.post.event.text}));
         }
     });
     response.end(request.post.challenge);
