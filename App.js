@@ -26,7 +26,7 @@ router.post("/github/end", function (request, response) {
     //         element.callback(request.post.event.text);
     //     }
     // });
-    response.code(500);
+    response.code(200);
 });
 
 var server = http.createServer(router);
