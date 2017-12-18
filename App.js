@@ -12,7 +12,7 @@ router.post("/slack/end", function(request, response) {
     console.log(callbacks);
     callbacks.forEach(function(element) {
         if(element.team == request.post.team_id) {
-            element.callback(request.post.event.text);
+            element.callback("github_received", request.post.event.text);
         }
     });
     response.end(request.post.challenge);
@@ -25,7 +25,7 @@ router.post("/github/end", function (request, response) {
         if(element.githubURL == request.post.repository.url) {
             var commits = request.post.commits[0];
             console.log(JSON.stringify({sender: commits.author.name, message: commits.message}));
-            element.callback(JSON.stringify({sender: commits.author.name, message: commits.message}));
+            element.callback("github_received", JSON.stringify({sender: commits.author.name, message: commits.message}));
         }
     });
     response.code(200);
@@ -40,8 +40,8 @@ io.on('connect', function (soc) {
         var json = JSON.parse(msg);
         soc.teamID = json.teamID;
         soc.githubURL = json.githubURL;
-        callbacks.push({team: json.teamID, socketId: soc.id, githubURL: soc.githubURL, callback: function(msg){
-            soc.emit("message_received", msg);
+        callbacks.push({team: json.teamID, socketId: soc.id, githubURL: soc.githubURL, callback: function(msg, type){
+            soc.emit(type, msg);
             console.log("sent to:" + soc.id);
         }});
         console.log("Socket connected:" + soc.id);
