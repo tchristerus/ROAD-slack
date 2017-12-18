@@ -12,7 +12,6 @@ router.post("/slack/end", function(request, response) {
     console.log(callbacks);
     callbacks.forEach(function(element) {
         if(element.team == request.post.team_id) {
-            console.log(request.post);
             element.callback("github_received", JSON.stringify({message: request.post.event.text}));
         }
     });
@@ -25,7 +24,6 @@ router.post("/github/end", function (request, response) {
     callbacks.forEach(function(element) {
         if(element.githubURL == request.post.repository.url) {
             var commits = request.post.commits[0];
-            console.log(JSON.stringify({sender: commits.author.name, message: commits.message}));
             element.callback("github_received", JSON.stringify({sender: commits.author.name, message: commits.message}));
         }
     });
