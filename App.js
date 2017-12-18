@@ -51,10 +51,9 @@ io.on('connect', function (soc) {
             if (item.socketId === soc.id) {
                 object.splice(index, 1);
                 console.log("Removed socket: "  + soc.id);
-                console.log(callbacks);
-
             }
         });
+        console.log(callbacks);
     });
 });
 
