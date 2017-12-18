@@ -7,3 +7,10 @@
 `ufw allow 1234` 
 ## run
 `node App.js`
+
+
+## github integration
+add webhook to your repo (http://slack.christerus.com/github/end)
+
+## slack integration
+Add ROAD plugin to your workgroup
