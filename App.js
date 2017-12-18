@@ -18,13 +18,24 @@ router.post("/slack/end", function(request, response) {
     response.end(request.post.challenge);
 });
 
+router.post("/github/end", function (request, response) {
+    console.log(Request);
+    // callbacks.forEach(function(element) {
+    //     if(element.githubSecret == request.post.team_id) {
+    //         element.callback(request.post.event.text);
+    //     }
+    // });
+});
+
 var server = http.createServer(router);
 
 server.listen(1234);
 
 io.on('connect', function (soc) {
     soc.on("init", function (msg) {
-        soc.teamID = msg;
+        var json = JSON.parse(msg);
+        soc.teamID = json.teamID;
+        soc.githubSecret = json.githubSecret;
         callbacks.push({team: msg, socketId: soc.id, callback: function(msg){
             soc.emit("message_received", msg);
         }});
