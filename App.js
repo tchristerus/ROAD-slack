@@ -2,6 +2,7 @@
 var io = require('socket.io')(6666);
 var http = require('http');
 var Router = require('node-simple-router');
+var colors = require('colors');
 
 var router = Router();
 var callbacks = [];
