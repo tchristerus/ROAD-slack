@@ -24,8 +24,8 @@ router.post("/github/end", function (request, response) {
     callbacks.forEach(function(element) {
         if(element.githubURL == request.post.repository.url) {
             var commits = request.post.commits[0];
-            console.log("commit by " + commits.author.name + " : " + commits.message);
-            element.callback("commit by " + commits.author.name + " : " + commits.message);
+            console.log(JSON.parse({comitter: commits.author.name, message: commits.message}));
+            element.callback(JSON.parse({comitter: commits.author.name, message: commits.message}));
         }
     });
     response.code(200);
