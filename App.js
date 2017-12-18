@@ -20,7 +20,7 @@ router.post("/slack/end", function(request, response) {
 
 router.post("/github/end", function (request, response) {
     //var json = JSON.parse(request.body);
-    console.log(request.post.repository);
+    console.log(request.post.repository.url);
     // callbacks.forEach(function(element) {
     //     if(element.githubSecret == request.post.team_id) {
     //         element.callback(request.post.event.text);
