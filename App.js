@@ -23,7 +23,7 @@ router.post("/github/end", function (request, response) {
     //console.log(request.post.repository.url);
     callbacks.forEach(function(element) {
         if(element.githubURL == request.post.repository.url) {
-            var commits = request.post.commits;
+            var commits = request.post.commits[0];
             console.log(request.post.commits);
             console.log("Message: " + commits.author.message);
 
