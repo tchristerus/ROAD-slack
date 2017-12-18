@@ -9,6 +9,14 @@ var callbacks = [];
 console.log("Socket server started at port 6666");
 console.log("webserver started at port 1234");
 
+router.post("/test", function(request, response) {
+    fs.readFile("web/index.html", function(err, data){
+        response.writeHead(200, {'Content-Type': 'text/html'});
+        response.write(data);
+        response.end();
+    });
+});
+
 router.post("/slack/end", function(request, response) {
     callbacks.forEach(function(element) {
         if(element.team == request.post.team_id) {
