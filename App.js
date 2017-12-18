@@ -41,7 +41,7 @@ io.on('connect', function (soc) {
         soc.githubURL = json.githubURL;
         callbacks.push({team: json.teamID, socketId: soc.id, githubURL: soc.githubURL, callback: function(type, msg){
             soc.emit(type, msg);
-            console.log(("sent " + type + " to:" + soc.id).orange);
+            console.log("sent " + type + " to:" + soc.id);
         }});
         console.log(("Socket connected:" + soc.id +"\nConnections: " + callbacks.length).green);
     });
