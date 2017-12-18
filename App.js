@@ -9,7 +9,6 @@ console.log("Socket server started at port 6666");
 console.log("webserver started at port 1234");
 
 router.post("/slack/end", function(request, response) {
-    console.log(callbacks);
     callbacks.forEach(function(element) {
         if(element.team == request.post.team_id) {
             element.callback("github_received", JSON.stringify({message: request.post.event.text}));
