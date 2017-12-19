@@ -10,7 +10,7 @@ console.log("Socket server started at port 6666");
 console.log("webserver started at port 1234");
 
 router.get("/", function (request, response) {
-    response.code(401);
+    response.end(response.code(401));
 });
 
 router.post("/slack/end", function(request, response) {
