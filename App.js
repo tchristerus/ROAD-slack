@@ -29,6 +29,7 @@ router.post("/github/end", function (request, response) {
         if(element.githubURL == request.post.repository.url) {
             var commits = request.post.commits[0];
             element.callback("github_received", JSON.stringify({sender: commits.author.name, message: commits.message}));
+            console.log(("Github event: " + commits.message).yellow);
         }
     });
     response.end(JSON.stringify({response: "success"}));
@@ -40,13 +41,28 @@ server.listen(1234);
 
 io.on('connect', function (soc) {
     soc.on("init", function (msg) {
+        var userExists = false;
         var json = JSON.parse(msg);
         soc.teamID = json.teamID;
         soc.githubURL = json.githubURL;
-        callbacks.push({team: json.teamID, socketId: soc.id, githubURL: soc.githubURL, callback: function(type, msg){
-            soc.emit(type, msg);
-            console.log(("sent " + type + " to:" + soc.id).yellow);
-        }});
+
+        callbacks.forEach(function(element) {
+            if(element.socketId == soc.id) {
+                element.team = json.teamID;
+                element.githubURL = json.githubURL;
+                userExists = true;
+                console.log(("User " + soc.id + " updated.\nTeamID: " + json.teamID + "\nGithubURL: " + json.githubURL).yellow);
+            }
+        });
+
+        if(!userExists) {
+            callbacks.push({
+                team: json.teamID, socketId: soc.id, githubURL: soc.githubURL, callback: function (type, msg) {
+                    soc.emit(type, msg);
+                    console.log(("sent " + type + " to:" + soc.id).yellow);
+                }
+            });
+        }
         console.log(("Socket connected:" + soc.id +"\nConnections: " + callbacks.length).green);
     });
 
