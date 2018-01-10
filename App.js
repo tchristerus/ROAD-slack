@@ -24,7 +24,7 @@ router.post("/slack/end", function(request, response) {
 
 router.post("/github/end", function (request, response) {
     //var json = JSON.parse(request.post);
-    //console.log(request.post.repository.url);
+    console.log(request.post;
     callbacks.forEach(function(element) {
         if(element.githubURL == request.post.repository.url) {
             var commits = request.post.commits[0];
