@@ -25,7 +25,7 @@ router.post("/github/end", function (request, response) {
     callbacks.forEach(function(element) {
         if(element.githubURL == request.post.repository.html_url) {
             var commits = request.post.commits[0];
-            console.log(JSON.stringify({sender: commits.author.name, message: commits.message});
+            console.log(JSON.stringify({sender: commits.author.name, message: commits.message}));
             element.callback("github_received", JSON.stringify({sender: commits.author.name, message: commits.message}));
             console.log(("Github event: " + commits.message).yellow);
         }
