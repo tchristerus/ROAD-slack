@@ -34,10 +34,12 @@ router.post("/github/end", function (request, response) {
     callbacks.forEach(function(element) {
         if(element.githubURL == request.post.repository.html_url) {
             var commits = request.post.commits[0];
-            var commitLabel = predictMessage(commits.message);
-            console.log(JSON.stringify({sender: commits.author.name, message: commits.message, label: commitLabel}));
-            element.callback("github_received", JSON.stringify({sender: commits.author.name, message: commits.message, label: commitLabel}));
-            console.log(("Github event: " + commits.message).yellow);
+            predictMessageAndForward(commits.message, function(commitLabel){
+                console.log(JSON.stringify({sender: commits.author.name, message: commits.message, label: commitLabel}));
+                element.callback("github_received", JSON.stringify({sender: commits.author.name, message: commits.message, label: commitLabel}));
+                console.log(("Github event: " + commits.message).yellow);
+            });
+
         }
     });
     response.end(JSON.stringify({response: "success"}));
@@ -91,7 +93,7 @@ function predictMessage(commitMessage){
     PythonShell.run('predict.py', options, function (err, results) {
         if(err) throw err;
         else{
-            return results[0];
+            return results[1];
         }
     });
 }
