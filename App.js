@@ -3,12 +3,21 @@ var io = require('socket.io')(6666);
 var http = require('http');
 var Router = require('node-simple-router');
 var colors = require('colors');
+var PythonShell = require('python-shell');
 var router = Router();
 var callbacks = [];
+
+var options = {
+    mode: 'text',
+    pythonPath: '/usr/bin/python3',
+    args: ['./trained_model_1516104858', '']
+};
+
 console.log("Socket server started at port 6666");
 console.log("webserver started at port 1234");
 
 router.get("/", function (request, response) {
+
     response.end(JSON.stringify({response: "Server up and running"}));
 });
 
@@ -25,8 +34,8 @@ router.post("/github/end", function (request, response) {
     callbacks.forEach(function(element) {
         if(element.githubURL == request.post.repository.html_url) {
             var commits = request.post.commits[0];
-            console.log(JSON.stringify({sender: commits.author.name, message: commits.message}));
-            element.callback("github_received", JSON.stringify({sender: commits.author.name, message: commits.message}));
+            var commitLabel = predictMessage(commits.message);
+            element.callback("github_received", JSON.stringify({sender: commits.author.name, message: commits.message, label: commitLabel}));
             console.log(("Github event: " + commits.message).yellow);
         }
     });
@@ -64,6 +73,7 @@ io.on('connect', function (soc) {
         console.log(("Socket connected:" + soc.id +"\nConnections: " + callbacks.length).green);
     });
 
+
     soc.on("disconnect", function () {
         callbacks.forEach(function(item, index, object) {
             if (item.socketId == soc.id) {
@@ -73,4 +83,15 @@ io.on('connect', function (soc) {
         });
     });
 });
+
+
+function predictMessage(commitMessage){
+    options.args[1] = commitMessage;
+    PythonShell.run('predict.py', options, function (err, results) {
+        if(err) throw err;
+        else{
+            return results[1];
+        }
+    });
+}
 
