@@ -88,7 +88,7 @@ io.on('connect', function (soc) {
 });
 
 
-function predictMessage(commitMessage){
+function predictMessageAndForward(commitMessage){
     options.args[1] = commitMessage;
     PythonShell.run('predict.py', options, function (err, results) {
         if(err) throw err;
