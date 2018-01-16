@@ -3,7 +3,6 @@ var io = require('socket.io')(6666);
 var http = require('http');
 var Router = require('node-simple-router');
 var colors = require('colors');
-
 var router = Router();
 var callbacks = [];
 console.log("Socket server started at port 6666");
@@ -23,12 +22,10 @@ router.post("/slack/end", function(request, response) {
 });
 
 router.post("/github/end", function (request, response) {
-    //var json = JSON.parse(request.post);
-    console.log(request.post.repository.html_url);
     callbacks.forEach(function(element) {
         if(element.githubURL == request.post.repository.html_url) {
-            console.log(request.post)
             var commits = request.post.commits[0];
+            console.log(JSON.stringify({sender: commits.author.name, message: commits.message});
             element.callback("github_received", JSON.stringify({sender: commits.author.name, message: commits.message}));
             console.log(("Github event: " + commits.message).yellow);
         }
