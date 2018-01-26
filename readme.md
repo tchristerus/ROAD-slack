@@ -1,3 +1,6 @@
+# about
+ROAD server. Used as link between github / slack and the duck.
+
 # Installation
 `npm install`
 
@@ -10,7 +13,7 @@
 
 
 ## github integration
-add webhook (json) to your repo (http://slack.christerus.com/github/end)
+add webhook (json) to your repo (https://slack.christerus.com/github/end)
 
 ## slack integration
 Add ROAD plugin to your workgroup
